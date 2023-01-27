@@ -1,8 +1,6 @@
 .page {
   background-color: #000;
   font-family: "Inter", Arial, sans-serif;
-  max-width: 1280px;
-  max-height: 100vh;
 }
 
 .page__section {
@@ -17,6 +15,8 @@
   flex-direction: column;
   flex-wrap: wrap;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @media screen and (max-width: 800px) {
