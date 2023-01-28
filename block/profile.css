@@ -30,7 +30,7 @@
   font-family: "Inter", Arial, sans-serif;
   font-weight: 500;
   font-size: 42px;
-  line-height: 48px;
+  line-height: 1.15;
   margin: 0;
 }
 
@@ -39,7 +39,7 @@
   font-family: "Inter", Arial, sans-serif;
   font-weight: normal;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 1.2;
   margin: 0;
 }
 
@@ -49,9 +49,11 @@
   width: 24px;
   height: 24px;
   margin-left: 18px;
+  border: 1px solid #fff;
 }
 
 .profile__edit:hover {
+  opacity: 60%;
 }
 
 .profile__add {
@@ -59,7 +61,109 @@
   width: 150px;
   height: 50px;
   margin-left: auto;
+  border: 2px solid #fff;
 }
 
 .profile__add:hover {
+  opacity: 60%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 546px) {
+  .profile {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile__info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 36px;
+  }
+
+  .profile__image {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+
+  .profile__title {
+    font-size: 22px;
+    line-height: 1.2;
+    width: 196px;
+    height: 22px;
+    margin-bottom: 14px;
+  }
+
+  .profile__description {
+    font-size: 14px;
+    line-height: 1.2;
+    width: 282px;
+    height: 14px;
+    text-align: center;
+  }
+
+  .profile__edit {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    padding: 0;
+  }
+
+  .profile__add {
+    width: 282px;
+    height: 50px;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 546px) and (max-width: 621px) {
+  .profile {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile__info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 36px;
+  }
+
+  .profile__image {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+
+  .profile__title {
+    font-size: 24px;
+    line-height: 1.2;
+    width: 216px;
+    height: 26px;
+    margin-bottom: 14px;
+  }
+
+  .profile__description {
+    font-size: 18px;
+    line-height: 1.2;
+    width: 282px;
+    height: 18px;
+    text-align: center;
+  }
+
+  .profile__edit {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    padding: 0;
+  }
+
+  .profile__add {
+    width: 282px;
+    height: 50px;
+    margin: 0;
+  }
 }

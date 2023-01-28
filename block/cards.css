@@ -40,6 +40,10 @@
 .card__title {
   margin: 0;
   padding: auto;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -50,15 +54,16 @@
   width: 21px;
   height: 18px;
   border: none;
-  transition: opacity 0.3s ease-in-out;
 }
 
 .card__like-button:hover {
   opacity: 50%;
 }
 
-@media screen and (max-width: 880px) {
-}
-
-@media screen and (min-width: 320px) {
+@media screen and (max-width: 480px) {
+  .card__list {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
 }
