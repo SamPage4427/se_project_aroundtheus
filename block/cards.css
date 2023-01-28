@@ -6,62 +6,15 @@
 .cards__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 20px 17px;
+  gap: 20px 17px;
   justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-
-.card__image {
-  width: 282px;
-  height: 282px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.card__description {
-  display: flex;
-  background-color: #fff;
-  color: #000;
-  align-items: center;
-  justify-content: space-between;
-  padding: 25px 20px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.card__title {
-  margin: 0;
-  padding: auto;
-  font-family: "Inter", Arial, sans-serif;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.2;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.card__like-button {
-  background: transparent url("../images/like-icon.svg") center no-repeat;
-  width: 21px;
-  height: 18px;
-  border: none;
-}
-
-.card__like-button:hover {
-  opacity: 50%;
-}
-
 @media screen and (max-width: 480px) {
-  .card__list {
+  .cards__list {
     flex-direction: column;
     gap: 20px;
     align-items: center;
