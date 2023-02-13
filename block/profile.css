@@ -57,6 +57,7 @@
   margin-left: 18px;
   border: 1px solid #fff;
   transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .profile__edit:hover {
@@ -71,6 +72,7 @@
   border: 2px solid #fff;
   border-radius: 2px;
   transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .profile__add:hover {
