@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -36,28 +36,28 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 const cardListElement = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template").content;
 
+function openProfileModal() {
+  modalTitle.value = profileTitle.textContent;
+  modalDescription.value = profileDescription.textContent;
+  profileEditModal.classList.add("modal__opened");
+}
+
 function closePopUp() {
   profileEditModal.classList.remove("modal__opened");
 }
 
-function handleFormSubmit(e) {
+function handleProfileFormSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = modalTitle.value;
   profileDescription.textContent = modalDescription.value;
   closePopUp();
 }
 
-function profileModalOpen() {
-  modalTitle.value = profileTitle.textContent;
-  modalDescription.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal__opened");
-}
-
-profileEditBtn.addEventListener("click", profileModalOpen);
+profileEditBtn.addEventListener("click", openProfileModal);
 
 profileEditClose.addEventListener("click", closePopUp);
 
-profileEditForm.addEventListener("submit", handleFormSubmit);
+profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
