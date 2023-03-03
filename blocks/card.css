@@ -1,7 +1,9 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0;
+  border-radius: 10px;
 }
 
 .card__image {
@@ -39,10 +41,34 @@
   width: 21px;
   height: 18px;
   border: none;
+  padding: 0;
+  margin: 0;
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
 }
 
+.card__like-button_active {
+  background-image: url("../images/heart-filled.svg");
+}
+
 .card__like-button:hover {
   opacity: 50%;
+}
+
+.card__delete-button {
+  background: transparent url("../images/trash-icon.svg") center no-repeat;
+  width: 18px;
+  height: 19px;
+  border: none;
+  position: absolute;
+  right: 15px;
+  top: 18px;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.card__delete-button:hover {
+  opacity: 60%;
 }
