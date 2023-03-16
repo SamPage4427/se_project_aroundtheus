@@ -1,3 +1,4 @@
+/*      Initial Cards Object      */
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,14 +26,12 @@ const initialCards = [
   },
 ];
 
+/*       Card Template       */
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
 
-/*-------------------------------------------------------------------------------------*/
-/*                                  Wrappers
-/*-------------------------------------------------------------------------------------*/
-
+/*      Wrappers      */
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardModal = document.querySelector("#card-add-modal");
@@ -42,10 +41,7 @@ const previewImageModal = document.querySelector("#image-modal");
 const previewImage = previewImageModal.querySelector(".modal__image");
 const previewImageCaption = previewImageModal.querySelector(".modal__caption");
 
-/*-------------------------------------------------------------------------------------*/
-/*                            Buttons and DOM elements
-/*-------------------------------------------------------------------------------------*/
-
+/*      Buttons and DOM elements      */
 const profileEditBtn = document.querySelector(".profile__edit");
 const profileEditModalCloseBtn =
   profileEditModal.querySelector(".modal__close");
@@ -55,19 +51,13 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const previewImageCloseBtn = previewImageModal.querySelector(".modal__close");
 
-/*-------------------------------------------------------------------------------------*/
-/*                                 Form inputs
-/*-------------------------------------------------------------------------------------*/
+/*       Form Inputs      */
+const modalTitle = document.querySelector("#title-input");
+const modalDescription = document.querySelector("#description-input");
+const addCardTitle = document.querySelector("#card-title-input");
+const addCardDescription = document.querySelector("#url-input");
 
-const modalTitle = document.querySelector("#profile-title-input");
-const modalDescription = document.querySelector("#profile-title-description");
-const addCardTitle = document.querySelector("#add-title-input");
-const addCardDescription = document.querySelector("#add-url-description");
-
-/*-------------------------------------------------------------------------------------*/
-/*                           open and close functions
-/*-------------------------------------------------------------------------------------*/
-
+/*      Open and Close Functions       */
 function openModal(modal) {
   modal.classList.add("modal__opened");
 }
@@ -76,15 +66,13 @@ function closeModal(modal) {
   modal.classList.remove("modal__opened");
 }
 
+/*      Render Cards      */
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
   wrapper.prepend(cardElement);
 }
 
-/*-------------------------------------------------------------------------------------*/
-/*                             form submit functions
-/*-------------------------------------------------------------------------------------*/
-
+/*       Form Submit Functions       */
 function fillProfileForm() {
   modalTitle.value = profileTitle.textContent;
   modalDescription.value = profileDescription.textContent;
@@ -106,35 +94,29 @@ function handleAddCardFormSubmit(e) {
   closeModal(addCardModal);
 }
 
-/*-------------------------------------------------------------------------------------*/
-/*                               event listeners
-/*-------------------------------------------------------------------------------------*/
-
+/*      Open Modal Listeners       */
 profileEditBtn.addEventListener("click", () => {
   fillProfileForm();
   openModal(profileEditModal);
 });
 addCardBtn.addEventListener("click", () => openModal(addCardModal));
 
+/*      close Modal Listeners       */
 profileEditModalCloseBtn.addEventListener("click", () =>
   closeModal(profileEditModal)
 );
 
 addModalCloseBtn.addEventListener("click", () => closeModal(addCardModal));
+
 previewImageCloseBtn.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
 
-/*-------------------------------------------------------------------------------------*/
-/*                             Form Event Listeners
-/*-------------------------------------------------------------------------------------*/
-
+/*      Form Event Listeners      */
 profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
-/*-------------------------------------------------------------------------------------*/
-/*                               Generate cards
-/*-------------------------------------------------------------------------------------*/
 
+/*      Generate cards      */
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImgElement = cardElement.querySelector(".card__image");
@@ -161,9 +143,7 @@ function getCardElement(data) {
   return cardElement;
 }
 
-/*-------------------------------------------------------------------------------------*/
-/*                             Cards intialization
-/*-------------------------------------------------------------------------------------*/
+/*      Cards intialization       */
 
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
