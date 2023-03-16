@@ -81,8 +81,7 @@ function renderCard(cardData, wrapper) {
 
 /*      Escape and Click functions      */
 function clickRemoteCloseModal(e) {
-  const modalOpen = document.querySelector(".modal__opened");
-  if (e.target.classList.contains(modalOpen)) {
+  if (e.target.classList.contains("modal__opened")) {
     closeModal(e.target);
   }
 }
@@ -91,7 +90,6 @@ function escapeCloseModal(evt) {
   if (evt.which === ESC_KEYCODE) {
     const activeModal = document.querySelector(".modal__opened");
     closeModal(activeModal);
-    console.log("Esc is working");
   }
 }
 
