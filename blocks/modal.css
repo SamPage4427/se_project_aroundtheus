@@ -115,6 +115,10 @@
   opacity: 0.2;
 }
 
+.modal__button_disabled:hover {
+  opacity: 0.2;
+}
+
 .modal__image-container {
   padding: 0;
   background: transparent;

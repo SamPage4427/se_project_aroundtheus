@@ -62,17 +62,25 @@ function setEventListeners(formElement, options) {
 }
 
 /*          Button Enable/Disable             */
+function disableButton(buttonElement, { inactiveButtonClass }) {
+  buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.disable = true;
+}
+
+function enableButton(buttonElement, { inactiveButtonClass }) {
+  buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.disable = false;
+}
+
 function toggleFormButtonState(
   inputList,
   buttonElement,
   { inactiveButtonClass }
 ) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.disable = true;
+    disableButton(buttonElement, { inactiveButtonClass });
   } else {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.disable = false;
+    enableButton(buttonElement, { inactiveButtonClass });
   }
 }
 

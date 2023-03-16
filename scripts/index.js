@@ -31,6 +31,9 @@ const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
 
+/*      Escape Keycode      */
+const ESC_KEYCODE = 27;
+
 /*      Wrappers      */
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
@@ -60,16 +63,36 @@ const addCardDescription = document.querySelector("#url-input");
 /*      Open and Close Functions       */
 function openModal(modal) {
   modal.classList.add("modal__opened");
+  document.addEventListener("mousedown", clickRemoteCloseModal);
+  document.addEventListener("keydown", escapeCloseModal);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal__opened");
+  document.removeEventListener("mousedown", clickRemoteCloseModal);
+  document.removeEventListener("keydown", escapeCloseModal);
 }
 
 /*      Render Cards      */
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
   wrapper.prepend(cardElement);
+}
+
+/*      Escape and Click functions      */
+function clickRemoteCloseModal(e) {
+  const modalOpen = document.querySelector(".modal__opened");
+  if (e.target.classList.contains(modalOpen)) {
+    closeModal(e.target);
+  }
+}
+
+function escapeCloseModal(evt) {
+  if (evt.which === ESC_KEYCODE) {
+    const activeModal = document.querySelector(".modal__opened");
+    closeModal(activeModal);
+    console.log("Esc is working");
+  }
 }
 
 /*       Form Submit Functions       */
