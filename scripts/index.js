@@ -63,13 +63,13 @@ const addCardDescription = document.querySelector("#url-input");
 /*      Open and Close Functions       */
 function openModal(modal) {
   modal.classList.add("modal__opened");
-  document.addEventListener("mousedown", clickRemoteCloseModal);
+  modal.addEventListener("mousedown", clickRemoteCloseModal);
   document.addEventListener("keydown", escapeCloseModal);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal__opened");
-  document.removeEventListener("mousedown", clickRemoteCloseModal);
+  modal.removeEventListener("mousedown", clickRemoteCloseModal);
   document.removeEventListener("keydown", escapeCloseModal);
 }
 
@@ -110,8 +110,15 @@ function handleAddCardFormSubmit(e) {
   e.preventDefault();
   const name = addCardTitle.value;
   const link = addCardDescription.value;
+  const cardInputList = [...addCardForm.querySelectorAll(".modal__input")];
+  const cardCreateButton = addCardForm.querySelector(".modal__button");
   renderCard({ name, link }, cardListElement);
   document.getElementById("add-card-form").reset();
+  toggleFormButtonState(
+    cardInputList,
+    cardCreateButton,
+    "modal__button_disabled"
+  );
   closeModal(addCardModal);
 }
 
