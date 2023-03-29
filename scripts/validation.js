@@ -1,5 +1,5 @@
 /*           Config            */
-const config = {
+export const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
@@ -62,12 +62,12 @@ function setEventListeners(formElement, options) {
 /*          Button Enable/Disable             */
 function disableButton(buttonElement, { inactiveButtonClass }) {
   buttonElement.classList.add(inactiveButtonClass);
-  buttonElement.disable = true;
+  buttonElement.disabled = true;
 }
 
 function enableButton(buttonElement, { inactiveButtonClass }) {
   buttonElement.classList.remove(inactiveButtonClass);
-  buttonElement.disable = false;
+  buttonElement.disabled = false;
 }
 
 function toggleFormButtonState(
