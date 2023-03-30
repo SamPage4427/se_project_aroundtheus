@@ -14,7 +14,6 @@ export default class Card {
   }
 
   _handleDeleteButton() {
-    this._cardElement = document.querySelector(".card");
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -62,13 +61,13 @@ export default class Card {
     this._cardElement = this._getElement();
 
     this._cardImgElement = this._cardElement.querySelector(".card__image");
-    const TitleElement = this._cardElement.querySelector(".card__title");
+    const titleElement = this._cardElement.querySelector(".card__title");
 
     this._setEventListeners();
 
     this._cardImgElement.src = this._link;
     this._cardImgElement.alt = this._name;
-    TitleElement.textContent = this._name;
+    titleElement.textContent = this._name;
     return this._cardElement;
   }
 }

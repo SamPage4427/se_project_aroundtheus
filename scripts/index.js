@@ -67,9 +67,7 @@ const addCardDescription = document.querySelector("#url-input");
 
 /*      Render Cards      */
 function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, "#card-template");
-  const cardElement = card.getCardElement();
-  wrapper.prepend(cardElement);
+  wrapper.prepend(createCard(cardData));
 }
 
 /*       Form Submit Functions       */
