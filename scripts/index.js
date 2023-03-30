@@ -2,7 +2,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import { openModal, closeModal } from "./utils.js";
-import { config } from "./validation.js";
 
 /*      Initial Cards Object      */
 const initialCards = [
@@ -31,6 +30,16 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+/*      Config Object       */
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input-error",
+  errorClass: "modal__error_visible",
+};
 
 /*      Wrappers      */
 const profileEditModal = document.querySelector("#profile-edit-modal");
