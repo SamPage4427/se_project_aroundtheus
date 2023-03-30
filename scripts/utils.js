@@ -1,3 +1,7 @@
+/*       Escape Keycode      */
+const ESC_KEYCODE = 27;
+
+/*       Open and Close Modal Functions      */
 function openModal(modal) {
   modal.classList.add("modal__opened");
   modal.addEventListener("mousedown", clickRemoteCloseModal);
@@ -17,7 +21,6 @@ function clickRemoteCloseModal(e) {
 }
 
 function escapeCloseModal(evt) {
-  const ESC_KEYCODE = 27;
   if (evt.which === ESC_KEYCODE) {
     const activeModal = document.querySelector(".modal__opened");
     closeModal(activeModal);

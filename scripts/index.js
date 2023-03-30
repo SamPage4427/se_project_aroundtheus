@@ -81,8 +81,8 @@ function handleAddCardFormSubmit(e) {
   const name = addCardTitle.value;
   const link = addCardDescription.value;
   renderCard({ name, link }, cardListElement);
-  document.getElementById("add-card-form").reset();
-  addCardFormValidator.toggleButtonState(addCardForm, addCardBtn);
+  addCardForm.reset();
+  addCardFormValidator.toggleButtonState();
   closeModal(addCardModal);
 }
 
@@ -115,9 +115,13 @@ const addCardFormValidator = new FormValidator(config, addCardForm);
 profileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
+/*       Create Card       */
+function createCard(object) {
+  const card = new Card(object, "#card-template");
+  return card.getCardElement();
+}
+
 /*      Cards intialization       */
 initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template");
-  const cardElement = card.getCardElement();
-  cardListElement.append(cardElement);
+  cardListElement.append(createCard(cardData));
 });
