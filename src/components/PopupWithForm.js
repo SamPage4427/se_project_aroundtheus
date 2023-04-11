@@ -1,8 +1,3 @@
-/* 2 parameters: popup selector and call back function
-private method getInputValues()
-modifies setEventListeners() add submit event and click close
-modifies close() to reset form once closed */
-
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {

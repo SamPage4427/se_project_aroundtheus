@@ -1,7 +1,3 @@
-/* single parameter for selecting popup
-public methods open() and close()
-private method handleEscClose() with logic for closing with ESC key
-public setEventListeners() adds click event to the close button and when click in grey area */
 import { ESC_KEYCODE } from "../utils/constants.js";
 
 class Popup {

@@ -1,9 +1,3 @@
-/* class section
-object with 2 parameters, item and renderer
-css class selector
-stores public method renderItems()
-renderer() function for rendering each item
-public method addItem() takes DOM element and adds to container */
 class Section {
   constructor({ item, renderer }, selector) {
     this._items = item;
