@@ -2,7 +2,6 @@
 import "./index.css";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-// import { openModal, closeModal } from "../utils/utils.js";
 import {
   initialCards,
   config,
@@ -69,23 +68,6 @@ function fillProfileForm() {
   modalDescription.value = profileDescription.textContent;
 }
 
-// function handleProfileFormSubmit(e) {
-//   e.preventDefault();
-//   profileTitle.textContent = modalTitle.value;
-//   profileDescription.textContent = modalDescription.value;
-//   closeModal(profileEditModal);
-// }
-
-// function handleAddCardFormSubmit(e) {
-//   e.preventDefault();
-//   const name = addCardTitle.value;
-//   const link = addCardDescription.value;
-//   renderCard({ name, link }, cardListElement);
-//   addCardForm.reset();
-//   addCardFormValidator.toggleButtonState();
-//   closeModal(addCardModal);
-// }
-
 /*      Open Modal Listeners       */
 profileEditBtn.addEventListener("click", () => {
   fillProfileForm();
@@ -106,10 +88,8 @@ addModalCloseBtn.addEventListener("click", () => cardAddModal.close());
 previewImageCloseBtn.addEventListener("click", () => previewModal.close());
 
 /*      Form Event Listeners      */
-// profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 editProfileModal.setEventListeners();
 cardAddModal.setEventListeners();
-// addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 /*      Form Validators       */
 const profileFormValidator = new FormValidator(config, profileEditForm);
@@ -125,8 +105,3 @@ function createCard(object) {
   });
   return card.getCardElement();
 }
-
-/*      Cards intialization       */
-// initialCards.forEach((cardData) => {
-//   cardListElement.append(createCard(cardData));
-// });
