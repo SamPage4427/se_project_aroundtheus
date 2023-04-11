@@ -11,19 +11,19 @@ class Popup {
 
   open() {
     this._modalElement.classList.add("modal__opened");
-    document.addEventListener("keydown", (e) => this._handleEscClose(e));
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
     this._modalElement.classList.remove("modal__opened");
-    document.removeEventListener("keydown", (e) => this._handleEscClose(e));
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  _handleEscClose(e) {
+  _handleEscClose = (e) => {
     if (e.which === ESC_KEYCODE) {
       this.close();
     }
-  }
+  };
 
   _handleOverlayClose(e) {
     if (e.target.classList.contains("modal__opened")) {

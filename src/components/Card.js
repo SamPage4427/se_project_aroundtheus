@@ -1,4 +1,4 @@
-import { openModal } from "../utils/utils.js";
+// import {openModal} from "../utils/utils.js";
 
 /*           Card Class            */
 export default class Card {
@@ -19,17 +19,17 @@ export default class Card {
     this._cardElement = null;
   }
 
-  _handlePreviewImg() {
-    this._previewImgModal = document.querySelector("#image-modal");
-    this._previewImg = this._previewImgModal.querySelector(".modal__image");
-    this._previewImgCaption =
-      this._previewImgModal.querySelector(".modal__caption");
+  // _handlePreviewImg() {
+  //   this._previewImgModal = document.querySelector("#image-modal");
+  //   this._previewImg = this._previewImgModal.querySelector(".modal__image");
+  //   this._previewImgCaption =
+  //     this._previewImgModal.querySelector(".modal__caption");
 
-    openModal(this._previewImgModal);
-    this._previewImg.src = this._link;
-    this._previewImg.alt = this._name;
-    this._previewImgCaption.textContent = this._name;
-  }
+  //   openModal(this._previewImgModal);
+  //   this._previewImg.src = this._link;
+  //   this._previewImg.alt = this._name;
+  //   this._previewImgCaption.textContent = this._name;
+  // }
 
   /*             Event Listeners             */
   _setEventListeners() {
@@ -44,9 +44,9 @@ export default class Card {
       this._handleDeleteButton();
     });
 
-    this._cardImgElement.addEventListener("click", () => {
-      this._handlePreviewImg();
-    });
+    // this._cardImgElement.addEventListener("click", () => {
+    //   this._handlePreviewImg();
+    // });
   }
 
   /*      Card Template       */

@@ -1,7 +1,7 @@
 /*       Imports       */
-import "../pages/index.css";
-import Card from "../scripts/Card.js";
-import FormValidator from "../scripts/FormValidator.js";
+import "./index.css";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 // import { openModal, closeModal } from "../utils/utils.js";
 import {
   initialCards,
@@ -22,23 +22,23 @@ import {
   profileDescription,
   cardListElement,
 } from "../utils/constants.js";
-import Section from "../scripts/Section.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import PopupWithImage from "../scripts/PopupWithImage.js";
-import UserInfo from "../scripts/UserInfo.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 
 /*       Class Instances       */
-const newCardSection = new Section(
+const cardSection = new Section(
   {
     item: initialCards,
     renderer: (data) => {
       const card = createCard(data);
-      newCardSection.addItem(card);
+      cardSection.addItem(card);
     },
   },
   ".cards__list"
 );
-newCardSection.renderItems();
+cardSection.renderItems();
 
 const newUserInfo = new UserInfo({
   name: ".profile__title",
@@ -50,11 +50,7 @@ const newProfileEditModal = new PopupWithForm(profileEditModal, (input) => {
 });
 
 const newAddCardModal = new PopupWithForm(addCardModal, (input) => {
-  const card = renderCard(
-    { name: input.name, link: input.link },
-    cardListElement
-  );
-  newCardSection.addItem(card);
+  renderCard({ name: input.name, link: input.link });
 });
 
 const newPreviewModal = new PopupWithImage({
@@ -64,8 +60,8 @@ const newPreviewModal = new PopupWithImage({
 newPreviewModal.setEventListeners();
 
 /*      Render Cards      */
-function renderCard(cardData, wrapper) {
-  wrapper.prepend(createCard(cardData));
+function renderCard(cardData) {
+  cardSection.prependItem(createCard(cardData));
 }
 
 /*       Form Submit Functions       */

@@ -5,18 +5,21 @@ stores public method renderItems()
 renderer() function for rendering each item
 public method addItem() takes DOM element and adds to container */
 class Section {
-  constructor({ item, renderer }, classSelector) {
-    this._renderItems = item;
+  constructor({ item, renderer }, selector) {
+    this._items = item;
     this._renderer = renderer;
-    this._classSelector = document.querySelector(classSelector);
+    this._container = document.querySelector(selector);
   }
   renderItems() {
-    this._renderItems.forEach((item) => {
+    this._items.forEach((item) => {
       this._renderer(item);
     });
   }
   addItem(element) {
-    this._classSelector.append(element);
+    this._container.append(element);
+  }
+  prependItem(element) {
+    this._container.prepend(element);
   }
 }
 
