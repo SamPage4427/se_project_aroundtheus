@@ -1,4 +1,5 @@
 // import {openModal} from "../utils/utils.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 /*           Card Class            */
 export default class Card {
@@ -44,9 +45,9 @@ export default class Card {
       this._handleDeleteButton();
     });
 
-    // this._cardImgElement.addEventListener("click", () => {
-    //   this._handlePreviewImg();
-    // });
+    this._cardImgElement.addEventListener("click", () => {
+      this._handleCardClick(this._name, this._link);
+    });
   }
 
   /*      Card Template       */
