@@ -31,6 +31,7 @@ class Popup {
     this._modalElement
       .querySelector(".modal__close")
       .addEventListener("click", () => this.close());
+
     this._modalElement.addEventListener("mousedown", (e) =>
       this._handleOverlayClose(e)
     );

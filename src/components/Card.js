@@ -1,13 +1,13 @@
-// import {openModal} from "../utils/utils.js";
-import PopupWithImage from "./PopupWithImage.js";
-
 /*           Card Class            */
 export default class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, userId, cardSelector, handleCardClick, handleDeleteClick) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
+    this._userId = userId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   /*            Private Handlers             */
@@ -15,22 +15,10 @@ export default class Card {
     this._likeBtn.classList.toggle("card__like-button_active");
   }
 
-  _handleDeleteButton() {
+  deleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }
-
-  // _handlePreviewImg() {
-  //   this._previewImgModal = document.querySelector("#image-modal");
-  //   this._previewImg = this._previewImgModal.querySelector(".modal__image");
-  //   this._previewImgCaption =
-  //     this._previewImgModal.querySelector(".modal__caption");
-
-  //   openModal(this._previewImgModal);
-  //   this._previewImg.src = this._link;
-  //   this._previewImg.alt = this._name;
-  //   this._previewImgCaption.textContent = this._name;
-  // }
 
   /*             Event Listeners             */
   _setEventListeners() {
@@ -42,7 +30,7 @@ export default class Card {
     });
 
     this._deleteBtn.addEventListener("click", () => {
-      this._handleDeleteButton();
+      this._handleDeleteClick();
     });
 
     this._cardImgElement.addEventListener("click", () => {

@@ -43,10 +43,12 @@ export const addCardModal = document.querySelector("#card-add-modal");
 export const addCardForm = addCardModal.querySelector(".modal__form");
 export const cardListElement = document.querySelector(".cards__list");
 export const previewImageModal = document.querySelector("#image-modal");
+export const removeCardModal = document.querySelector("#delete-modal");
+export const avatarModal = document.querySelector("#avatar-modal");
+export const avatarModalForm = avatarModal.querySelector("#avatar-modal-form");
 
 /*      Buttons and DOM elements      */
 export const profileEditBtn = document.querySelector(".profile__edit");
-// const modalCloseBtn = document.querySelector(".modal__close");
 export const profileEditModalCloseBtn =
   profileEditModal.querySelector(".modal__close");
 export const addCardBtn = document.querySelector(".profile__add");
@@ -55,8 +57,15 @@ export const profileTitle = document.querySelector(".profile__title");
 export const profileDescription = document.querySelector(
   ".profile__description"
 );
+export const profileAvatar = document.querySelector(".profile__image");
 export const previewImageCloseBtn =
   previewImageModal.querySelector(".modal__close");
+export const deleteCardCloseBtn =
+  removeCardModal.querySelector(".modal__close");
+export const avatarEditButton = document.querySelector(
+  ".profile__avatar-edit-btn"
+);
+export const avatarModalCloseBtn = avatarModal.querySelector(".modal__close");
 
 /*       Form Inputs      */
 export const modalTitle = document.querySelector("#title-input");

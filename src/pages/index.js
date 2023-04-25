@@ -1,7 +1,14 @@
 /*       Imports       */
 import "./index.css";
+
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
+import UserInfo from "../components/UserInfo.js";
+
 import {
   initialCards,
   config,
@@ -19,13 +26,90 @@ import {
   modalDescription,
   profileTitle,
   profileDescription,
+  removeCardModal,
+  deleteCardCloseBtn,
+  profileAvatar,
 } from "../utils/constants.js";
-import Section from "../components/Section.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-import UserInfo from "../components/UserInfo.js";
+import Api from "../utils/Api.js";
 
-/*       Class Instances       */
+/*       User Info       */
+const userInfo = new UserInfo({
+  name: profileTitle,
+  about: profileDescription,
+  avatar: profileAvatar,
+});
+let userId;
+
+/*       APIs      */
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "c7546df9-ad4c-4c05-9963-4c89159dd0ba",
+    "Content-Type": "application/json",
+  },
+});
+let cardApi;
+
+/*       Popups      */
+const editProfileModal = new PopupWithForm(profileEditModal, (input) => {
+  api
+    .editUserProfile(input)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      editProfileModal.close();
+    })
+    .catch((err) => console.error(err));
+});
+
+const cardAddModal = new PopupWithForm(addCardModal, (input) => {
+  api
+    .addNewCard(input)
+    .then((data) => {
+      renderCard(data);
+      cardAddModal.close();
+    })
+    .catch((err) => console.error(err));
+});
+
+const previewModal = new PopupWithImage({
+  modalSelector: previewImageModal,
+});
+
+previewModal.setEventListeners();
+
+const deleteCardModal = new PopupWithConfirm(removeCardModal);
+
+/*       Create Card       */
+function createCard(object) {
+  const card = new Card(
+    object,
+    userId,
+    "#card-template",
+    (name, link) => {
+      previewModal.open(name, link);
+    },
+    (cardId) => {
+      deleteCardModal.open();
+      deleteCardModal.submitAction(() => {
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            card.deleteCard();
+            deleteCardModal.close();
+          })
+          .catch((err) => console.error(err));
+      });
+    }
+  );
+  return card.getCardElement();
+}
+
+/*      Render Cards      */
+function renderCard(cardData) {
+  cardSection.prependItem(createCard(cardData));
+}
+
+/*       Sections      */
 const cardSection = new Section(
   {
     item: initialCards,
@@ -38,29 +122,20 @@ const cardSection = new Section(
 );
 cardSection.renderItems();
 
-const userInfo = new UserInfo({
-  name: ".profile__title",
-  job: ".profile__description",
-});
+/*       API info      */
+api
+  .getApiInfo()
+  .then(([initializeUser, initializeCards]) => {
+    userId = initializeUser._id;
+    userInfo.setUserInfo(initializeUser);
 
-const editProfileModal = new PopupWithForm(profileEditModal, (input) => {
-  userInfo.setUserInfo(input.title, input.description);
-});
-
-const cardAddModal = new PopupWithForm(addCardModal, (input) => {
-  renderCard({ name: input.name, link: input.link });
-});
-
-const previewModal = new PopupWithImage({
-  modalSelector: previewImageModal,
-});
-
-previewModal.setEventListeners();
-
-/*      Render Cards      */
-function renderCard(cardData) {
-  cardSection.prependItem(createCard(cardData));
-}
+    cardApi = new Section(
+      { item: initializeCards, renderer: renderCard },
+      ".cards__list"
+    );
+    cardApi.renderItems();
+  })
+  .catch((err) => console.error(err));
 
 /*       Form Submit Functions       */
 function fillProfileForm() {
@@ -87,6 +162,8 @@ addModalCloseBtn.addEventListener("click", () => cardAddModal.close());
 
 previewImageCloseBtn.addEventListener("click", () => previewModal.close());
 
+deleteCardCloseBtn.addEventListener("click", () => deleteCardModal.close());
+
 /*      Form Event Listeners      */
 editProfileModal.setEventListeners();
 cardAddModal.setEventListeners();
@@ -97,11 +174,3 @@ const addCardFormValidator = new FormValidator(config, addCardForm);
 
 profileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
-
-/*       Create Card       */
-function createCard(object) {
-  const card = new Card(object, "#card-template", (name, link) => {
-    previewModal.open(name, link);
-  });
-  return card.getCardElement();
-}

@@ -37,6 +37,11 @@
   overflow: hidden;
 }
 
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .card__like-button {
   background: transparent url("../images/like-icon.svg") center no-repeat;
   width: 21px;
@@ -54,6 +59,17 @@
 
 .card__like-button:hover {
   opacity: 50%;
+}
+
+.card__like-number {
+  color: #000;
+  text-align: center;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.2;
+  margin: 3px 0 0;
+  padding: 0;
 }
 
 .card__delete-button {
