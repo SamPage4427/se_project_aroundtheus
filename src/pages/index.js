@@ -9,8 +9,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 
+import Api from "../utils/Api.js";
 import {
-  initialCards,
   config,
   profileEditModal,
   profileEditForm,
@@ -29,8 +29,11 @@ import {
   removeCardModal,
   deleteCardCloseBtn,
   profileAvatar,
+  avatarModal,
+  avatarEditButton,
+  avatarModalCloseBtn,
+  avatarModalForm,
 } from "../utils/constants.js";
-import Api from "../utils/Api.js";
 
 /*       User Info       */
 const userInfo = new UserInfo({
@@ -52,32 +55,52 @@ let cardApi;
 
 /*       Popups      */
 const editProfileModal = new PopupWithForm(profileEditModal, (input) => {
+  editProfileModal.uxUpload(true, "Saving...");
   api
     .editUserProfile(input)
     .then((data) => {
       userInfo.setUserInfo(data);
       editProfileModal.close();
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      editProfileModal.uxUpload(false, "Save");
+    });
 });
 
 const cardAddModal = new PopupWithForm(addCardModal, (input) => {
+  cardAddModal.uxUpload(true, "Creating...");
   api
     .addNewCard(input)
     .then((data) => {
       renderCard(data);
       cardAddModal.close();
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      cardAddModal.uxUpload(false, "Create");
+    });
 });
 
 const previewModal = new PopupWithImage({
   modalSelector: previewImageModal,
 });
 
-previewModal.setEventListeners();
-
 const deleteCardModal = new PopupWithConfirm(removeCardModal);
+
+const changeAvatarModal = new PopupWithForm(avatarModal, (input) => {
+  changeAvatarModal.uxUpload(true, "Saving...");
+  api
+    .editUserAvatar(input.avatar)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      changeAvatarModal.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      changeAvatarModal.uxUpload(false, "Save");
+    });
+});
 
 /*       Create Card       */
 function createCard(object) {
@@ -91,36 +114,47 @@ function createCard(object) {
     (cardId) => {
       deleteCardModal.open();
       deleteCardModal.submitAction(() => {
+        deleteCardModal.confirmDelete(true);
         api
           .deleteCard(cardId)
           .then(() => {
             card.deleteCard();
             deleteCardModal.close();
           })
-          .catch((err) => console.error(err));
+          .catch((err) => console.error(err))
+          .finally(() => {
+            deleteCardModal.confirmDelete(false, "Yes");
+          });
       });
+    },
+    (cardId) => {
+      if (card.isLiked()) {
+        api
+          .removeCardLike(cardId)
+          .then((data) => {
+            card.removeLikes();
+            card.updateLikes(data);
+          })
+          .catch((err) => console.error(err));
+      } else {
+        api
+          .addCardLike(cardId)
+          .then((data) => {
+            card.addLikes();
+            card.updateLikes(data);
+          })
+          .catch((err) => console.error(err));
+      }
     }
   );
   return card.getCardElement();
 }
 
 /*      Render Cards      */
-function renderCard(cardData) {
-  cardSection.prependItem(createCard(cardData));
+function renderCard(data) {
+  const card = createCard(data);
+  cardApi.prependItem(card);
 }
-
-/*       Sections      */
-const cardSection = new Section(
-  {
-    item: initialCards,
-    renderer: (data) => {
-      const card = createCard(data);
-      cardSection.addItem(card);
-    },
-  },
-  ".cards__list"
-);
-cardSection.renderItems();
 
 /*       API info      */
 api
@@ -153,6 +187,11 @@ addCardBtn.addEventListener("click", () => {
   addCardFormValidator.toggleButtonState();
 });
 
+avatarEditButton.addEventListener("click", () => {
+  changeAvatarModal.open();
+  avatarFormValidator.toggleButtonState();
+});
+
 /*      close Modal Listeners       */
 profileEditModalCloseBtn.addEventListener("click", () =>
   editProfileModal.close()
@@ -164,13 +203,20 @@ previewImageCloseBtn.addEventListener("click", () => previewModal.close());
 
 deleteCardCloseBtn.addEventListener("click", () => deleteCardModal.close());
 
-/*      Form Event Listeners      */
+avatarModalCloseBtn.addEventListener("click", () => changeAvatarModal.close());
+
+/*     Event Listeners      */
 editProfileModal.setEventListeners();
 cardAddModal.setEventListeners();
+previewModal.setEventListeners();
+deleteCardModal.setEventListeners();
+changeAvatarModal.setEventListeners();
 
 /*      Form Validators       */
 const profileFormValidator = new FormValidator(config, profileEditForm);
 const addCardFormValidator = new FormValidator(config, addCardForm);
+const avatarFormValidator = new FormValidator(config, avatarModalForm);
 
 profileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+avatarFormValidator.enableValidation();

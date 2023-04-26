@@ -64,14 +64,14 @@ class Api {
     }).then((res) => this._checkStatus(res));
   }
 
-  addCardLikes(cardId) {
+  addCardLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
     }).then((res) => this._checkStatus(res));
   }
 
-  removeCardLikes() {
+  removeCardLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,

@@ -4,6 +4,7 @@ class PopupWithForm extends Popup {
   constructor(modalSelector, handleSubmitForm) {
     super({ modalSelector });
     this._modalForm = this._modalElement.querySelector(".modal__form");
+    this._modalSubmitBtn = this._modalElement.querySelector(".modal__button");
     this._modalInputs = this._modalElement.querySelectorAll(".modal__input");
     this._handleSubmitForm = handleSubmitForm;
   }
@@ -16,8 +17,16 @@ class PopupWithForm extends Popup {
     return inputValues;
   }
 
+  uxUpload(isUpload, upload) {
+    if (isUpload) {
+      this._modalSubmitBtn.textContent = upload;
+    } else {
+      this._modalSubmitBtn.textContent = upload;
+    }
+  }
+
   setEventListeners() {
-    this._modalForm.addEventListener("submit", (e) => {
+    this._modalSubmitBtn.addEventListener("click", (e) => {
       e.preventDefault();
       this._handleSubmitForm(this._getInputValues());
       this.close();
