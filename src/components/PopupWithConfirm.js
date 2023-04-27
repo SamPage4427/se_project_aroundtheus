@@ -7,15 +7,15 @@ class PopupWithConfirm extends Popup {
       this._modalElement.querySelector("#delete-btn-submit");
   }
 
-  submitAction(action) {
+  setSubmitAction(action) {
     this._handleSubmit = action;
   }
 
-  confirmDelete(isDeleted, del) {
-    if (isDeleted) {
+  renderLoading(isDeleting, text) {
+    if (isDeleting) {
       this._confirmButton.textContent = "Deleting...";
     } else {
-      this._confirmButton.textContent = del;
+      this._confirmButton.textContent = text;
     }
   }
 

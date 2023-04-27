@@ -55,7 +55,7 @@ let cardApi;
 
 /*       Popups      */
 const editProfileModal = new PopupWithForm(profileEditModal, (input) => {
-  editProfileModal.uxUpload(true, "Saving...");
+  editProfileModal.setSubmitButtonText("Saving...");
   api
     .editUserProfile(input)
     .then((data) => {
@@ -64,12 +64,12 @@ const editProfileModal = new PopupWithForm(profileEditModal, (input) => {
     })
     .catch((err) => console.error(err))
     .finally(() => {
-      editProfileModal.uxUpload(false, "Save");
+      editProfileModal.setSubmitButtonText("Save");
     });
 });
 
 const cardAddModal = new PopupWithForm(addCardModal, (input) => {
-  cardAddModal.uxUpload(true, "Creating...");
+  cardAddModal.setSubmitButtonText("Creating...");
   api
     .addNewCard(input)
     .then((data) => {
@@ -78,7 +78,7 @@ const cardAddModal = new PopupWithForm(addCardModal, (input) => {
     })
     .catch((err) => console.error(err))
     .finally(() => {
-      cardAddModal.uxUpload(false, "Create");
+      cardAddModal.setSubmitButtonText("Create");
     });
 });
 
@@ -89,16 +89,16 @@ const previewModal = new PopupWithImage({
 const deleteCardModal = new PopupWithConfirm(removeCardModal);
 
 const changeAvatarModal = new PopupWithForm(avatarModal, (input) => {
-  changeAvatarModal.uxUpload(true, "Saving...");
+  changeAvatarModal.setSubmitButtonText("Saving...");
   api
     .editUserAvatar(input.avatar)
     .then((data) => {
-      userInfo.setUserInfo(data);
+      userInfo.setAvatarInfo(data);
       changeAvatarModal.close();
     })
     .catch((err) => console.error(err))
     .finally(() => {
-      changeAvatarModal.uxUpload(false, "Save");
+      changeAvatarModal.setSubmitButtonText("Save");
     });
 });
 
@@ -113,8 +113,8 @@ function createCard(object) {
     },
     (cardId) => {
       deleteCardModal.open();
-      deleteCardModal.submitAction(() => {
-        deleteCardModal.confirmDelete(true);
+      deleteCardModal.setSubmitAction(() => {
+        deleteCardModal.renderLoading(true);
         api
           .deleteCard(cardId)
           .then(() => {
@@ -123,7 +123,7 @@ function createCard(object) {
           })
           .catch((err) => console.error(err))
           .finally(() => {
-            deleteCardModal.confirmDelete(false, "Yes");
+            deleteCardModal.renderLoading(false, "Yes");
           });
       });
     },
@@ -131,18 +131,12 @@ function createCard(object) {
       if (card.isLiked()) {
         api
           .removeCardLike(cardId)
-          .then((data) => {
-            card.removeLikes();
-            card.updateLikes(data);
-          })
+          .then((data) => card.setLikes(data.likes))
           .catch((err) => console.error(err));
       } else {
         api
           .addCardLike(cardId)
-          .then((data) => {
-            card.addLikes();
-            card.updateLikes(data);
-          })
+          .then((data) => card.setLikes(data.likes))
           .catch((err) => console.error(err));
       }
     }
@@ -162,6 +156,7 @@ api
   .then(([initializeUser, initializeCards]) => {
     userId = initializeUser._id;
     userInfo.setUserInfo(initializeUser);
+    userInfo.setAvatarInfo(initializeUser);
 
     cardApi = new Section(
       { item: initializeCards, renderer: renderCard },
@@ -181,18 +176,19 @@ function fillProfileForm() {
 profileEditBtn.addEventListener("click", () => {
   fillProfileForm();
   editProfileModal.open();
+  profileFormValidator.resetValidation();
 });
 addCardBtn.addEventListener("click", () => {
   cardAddModal.open();
-  addCardFormValidator.toggleButtonState();
+  addCardFormValidator.resetValidation();
 });
 
 avatarEditButton.addEventListener("click", () => {
   changeAvatarModal.open();
-  avatarFormValidator.toggleButtonState();
+  avatarFormValidator.resetValidation();
 });
 
-/*      close Modal Listeners       */
+/*      Close Modal Listeners       */
 profileEditModalCloseBtn.addEventListener("click", () =>
   editProfileModal.close()
 );

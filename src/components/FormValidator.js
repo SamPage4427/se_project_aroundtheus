@@ -30,7 +30,6 @@ export default class FormValidator {
     ];
     this._submitBtn = this._formELement.querySelector(this._submitBtnSelector);
 
-    this.toggleButtonState();
     this._inputElements.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkInputValidity(input);
@@ -87,6 +86,14 @@ export default class FormValidator {
         e.preventDefault();
       });
       this._setFormEventListeners();
+    });
+  }
+
+  /*        Reset Form Validation        */
+  resetValidation() {
+    this.toggleButtonState();
+    this._inputElements.forEach((inputElement) => {
+      this._hideInputError(inputElement);
     });
   }
 }

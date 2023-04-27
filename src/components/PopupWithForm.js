@@ -17,19 +17,15 @@ class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  uxUpload(isUpload, upload) {
-    if (isUpload) {
-      this._modalSubmitBtn.textContent = upload;
-    } else {
-      this._modalSubmitBtn.textContent = upload;
-    }
+  setSubmitButtonText(upload) {
+    this._modalSubmitBtn.textContent = upload;
+    this._modalSubmitBtn.textContent = upload;
   }
 
   setEventListeners() {
     this._modalSubmitBtn.addEventListener("click", (e) => {
       e.preventDefault();
       this._handleSubmitForm(this._getInputValues());
-      this.close();
     });
     super.setEventListeners();
   }
