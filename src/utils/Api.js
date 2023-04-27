@@ -15,14 +15,14 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   editUserProfile(inputData) {
@@ -33,7 +33,7 @@ class Api {
         name: inputData.title,
         about: inputData.description,
       }),
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   editUserAvatar(avatar) {
@@ -43,7 +43,7 @@ class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   addNewCard({ name, link }) {
@@ -54,28 +54,28 @@ class Api {
         name,
         link,
       }),
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   addCardLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   removeCardLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._checkStatus(res));
+    }).then(this._checkStatus);
   }
 
   getApiInfo() {
