@@ -17,9 +17,8 @@ class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  setSubmitButtonText(upload) {
-    this._modalSubmitBtn.textContent = upload;
-    this._modalSubmitBtn.textContent = upload;
+  setSubmitButtonText(text) {
+    this._modalSubmitBtn.textContent = text;
   }
 
   setEventListeners() {
