@@ -1,4 +1,4 @@
-# Project 3-9: Around The U.S.
+# Project: Around The U.S.
 
 ### Overview  
 
